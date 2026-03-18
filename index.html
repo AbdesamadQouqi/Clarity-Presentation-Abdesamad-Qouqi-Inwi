@@ -129,24 +129,35 @@
             display: none;
         }
 
-        /* ===== RESPONSIVE POUR TÉLÉPHONE ===== */
+        /* ===== RESPONSIVE POUR TÉLÉPHONE PORTRAIT ===== */
         @media (max-width: 600px) {
+            body {
+                align-items: flex-start;
+                padding: 0;
+            }
+
             .container {
-                padding: 1rem;  /* Augmenté de 0.5rem à 1rem pour éviter que l'image touche les bords */
-                height: 100vh;
+                padding: 0.5rem;
+                height: auto;
+                min-height: 100vh;
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
+                justify-content: center;
             }
             
             .video-wrapper {
-                border-radius: 16px;  /* Légèrement augmenté */
+                border-radius: 16px;
                 border-width: 1.5px;
-                margin: 0;  /* Assure qu'il n'y a pas de marge */
+                margin: 0;
                 width: 100%;
+                max-height: none;
             }
             
             .video-wrapper img {
                 border-radius: 14px;
+                max-height: none;
+                width: 100%;
+                height: auto;
             }
             
             .image-logo {
@@ -158,19 +169,18 @@
                 border-width: 2px;
             }
             
-            /* ===== CORRECTION IMPORTANTE ===== */
-            /* Déplacer le header en haut à droite sur mobile portrait */
+            /* Header en haut à droite - style bulle blanche */
             .page-header {
-                bottom: auto;  /* Annule bottom */
-                top: 15px;      /* Positionne en haut */
+                bottom: auto;
+                top: 15px;
                 right: 15px;
-                background: rgba(255, 255, 255, 0.9);
+                background: rgba(255, 255, 255, 0.95);
                 backdrop-filter: blur(5px);
                 padding: 8px 16px 8px 12px;
                 border-radius: 40px;
                 border: 2px solid #8c82ac4b;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-                z-index: 101;  /* Légèrement plus haut pour être sûr qu'il soit visible */
+                z-index: 101;
             }
             
             .header-logo {
@@ -186,25 +196,38 @@
             }
         }
 
-        /* ===== CORRECTION POUR MODE PAYSAGE SUR MOBILE ===== */
+        /* ===== MODE PAYSAGE SUR MOBILE - BULLE IDENTIQUE AU PORTRAIT ===== */
         @media (max-width: 900px) and (orientation: landscape) {
-            /* Header en petite bulle blanche en haut à droite */
+            body {
+                align-items: center;
+            }
+
+            .container {
+                padding: 1rem;
+                height: auto;
+                min-height: auto;
+                display: flex;
+                align-items: center;
+            }
+            
+            /* Header en bulle blanche - EXACTEMENT COMME EN PORTRAIT */
             .page-header {
                 bottom: auto;
                 top: 15px;
                 right: 15px;
-                background: rgba(255, 255, 255, 0.9);
+                background: rgba(255, 255, 255, 0.95); /* Même fond blanc */
                 backdrop-filter: blur(5px);
-                padding: 6px 15px 6px 12px;
+                padding: 8px 16px 8px 12px; /* Mêmes dimensions */
                 border-radius: 40px;
                 border: 2px solid #8c82ac4b;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+                z-index: 101;
             }
             
             .header-logo {
                 width: 32px;
                 height: 32px;
-                opacity: 0.8;
+                opacity: 0.9;
             }
             
             .header-text {
@@ -225,7 +248,7 @@
         /* Pour les très petits téléphones en portrait */
         @media (max-width: 380px) and (orientation: portrait) {
             .container {
-                padding: 0.8rem;  /* Ajustement pour très petits écrans */
+                padding: 0.4rem;
             }
             
             .image-logo {
@@ -238,8 +261,8 @@
             }
             
             .page-header {
-                top: 12px;
-                right: 12px;
+                top: 10px;
+                right: 10px;
                 padding: 6px 12px 6px 10px;
             }
             
@@ -253,7 +276,7 @@
             }
         }
 
-        /* Pour les très grands écrans, garder le header en bas */
+        /* Pour les très grands écrans (tablettes, desktop) */
         @media (min-width: 601px) {
             .page-header {
                 bottom: 5px;
@@ -285,6 +308,58 @@
             background-color: rgba(106, 83, 122, 0.2);
             color: #333;
         }
+
+        /* ===== MODE PAYSAGE SUR MOBILE - BULLE IDENTIQUE AU PORTRAIT ===== */
+@media (max-width: 900px) and (orientation: landscape) {
+    body {
+        align-items: center;
+    }
+
+    .container {
+        padding: 1rem;
+        height: auto;
+        min-height: auto;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Header en bulle blanche - EXACTEMENT COMME EN PORTRAIT */
+    .page-header {
+        bottom: auto;
+        top: 15px;
+        right: 15px;
+        background: rgba(255, 255, 255, 0.95); /* Même fond blanc opaque */
+        backdrop-filter: blur(5px);
+        padding: 8px 16px 8px 12px; /* MÊMES PADDINGS qu'en portrait */
+        border-radius: 40px;
+        border: 2px solid #8c82ac4b;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        z-index: 101;
+        /* Forcer l'opacité */
+        opacity: 1;
+    }
+    
+    .header-logo {
+        width: 32px !important; /* Forcer la même taille */
+        height: 32px !important;
+        opacity: 0.9;
+    }
+    
+    .header-text {
+        font-size: 0.7rem !important; /* Forcer la même taille */
+        color: #555 !important;
+        font-weight: 400;
+        opacity: 1;
+    }
+    
+    .image-logo {
+        width: 40px;
+        height: 40px;
+        padding: 7px;
+        bottom: 15px;
+        right: 15px;
+    }
+}
     </style>
 </head>
 <body>
