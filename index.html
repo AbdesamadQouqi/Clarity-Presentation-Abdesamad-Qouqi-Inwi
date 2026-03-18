@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clarity's DataBase</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     *, *::before, *::after {
       margin: 0;
@@ -96,7 +97,7 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      border: 3px solid #8c82ac4b;
+      border:2px solid #8c82ac4b;
       background: rgba(255, 255, 255, 0.92);
       color: #a5a2c2;
       font-size: 20px;
@@ -109,8 +110,9 @@
     }
 
     #controls button:hover {
-      background: #8c82ac4b;
-      color: #fff;
+      background: #8c82ac16;
+      transform: scale(1.08);
+      transition: background 0.15s, color 0.15s, transform 0.15s;
     }
 
     #controls button:active {
@@ -230,6 +232,16 @@
         color: #555;
       }
     }
+    ::selection {
+    background-color: rgba(222, 207, 227, 0.632); /* Violet épuré avec transparence */
+    color: #333; /* Garde la couleur du texte originale ou mettez la couleur de votre choix */
+}
+
+/* Pour Firefox (nécessite le préfixe) */
+::-moz-selection {
+    background-color: rgba(106, 83, 122, 0.2);
+    color: #333;
+}
   </style>
 </head>
 <body>
@@ -247,9 +259,9 @@
 
   <!-- Zoom controls -->
   <div id="controls">
-    <button id="btn-reset"    title="Réinitialiser">↺</button>
-    <button id="btn-zoom-in"  title="Zoom +">+</button>
-    <button id="btn-zoom-out" title="Zoom −">−</button>
+<button id="btn-reset"    title="Réinitialiser la position"><i class="fas fa-undo" style="font-size: 15px;"></i></button>
+<button id="btn-zoom-in"  title="Zoomer"><i class="fa-solid fa-plus" style="font-size: 15px;"></i></button>
+<button id="btn-zoom-out" title="Dézoomer"><i class="fa-solid fa-minus" style="font-size: 15px;"></i></button>
   </div>
 
   <!-- Designed by — outside container, bottom right -->
