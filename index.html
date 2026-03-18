@@ -1,400 +1,378 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clarity (DataBase)</title>
-    <link rel="icon" href="connect_clarity.png" type="image">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #fafafa;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #1d1d1f;
-            position: relative;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        /* Conteneur image épuré */
-        .video-wrapper {
-            border: solid 2px #8c82ac4b;
-            background: none;
-            border-radius: 20px;
-            overflow: hidden;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        /* Style de l'image */
-        .video-wrapper img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 18px;
-            transition: transform 0.3s ease;
-        }
-
-        /* ===== Logo positionné sur l'image ===== */
-        .image-logo {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: white;
-            border-radius: 50%;
-            padding: 10px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-            backdrop-filter: blur(5px);
-            border: 2px solid #82ac9a;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            z-index: 20;
-            opacity: 0.95;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .image-logo:hover {
-            transform: scale(1.15);
-            opacity: 1;
-            box-shadow: 0 8px 25px rgba(106, 83, 122, 0.4);
-        }
-
-        .image-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 0 !important;
-            transition: none;
-        }
-
-        .image-logo img:hover {
-            transform: none;
-        }
-
-        /* HEADER EN BAS À DROITE */
-        .page-header {
-            position: fixed;
-            bottom: 5px;
-            right: 15px;
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            z-index: 100;
-        }
-
-        .header-logo {
-            width:48px;
-            height: 48px;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
-
-        .header-logo:hover {
-            opacity: 1;
-        }
-
-        .header-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .header-text {
-            font-size: 0.8rem;
-            font-weight: 300;
-            color: #717177;
-            letter-spacing: -0.02em;
-            opacity: 0.8;
-            margin: 0;
-        }
-
-        h1 {
-            display: none;
-        }
-
-        /* ===== RESPONSIVE POUR TÉLÉPHONE PORTRAIT ===== */
-        @media (max-width: 600px) {
-            body {
-                align-items: flex-start;
-                padding: 0;
-            }
-
-            .container {
-                padding: 0.5rem;
-                height: auto;
-                min-height: 100vh;
-                display: flex;
-                align-items: flex-start;
-                justify-content: center;
-            }
-            
-            .video-wrapper {
-                border-radius: 16px;
-                border-width: 1.5px;
-                margin: 0;
-                width: 100%;
-                max-height: none;
-            }
-            
-            .video-wrapper img {
-                border-radius: 14px;
-                max-height: none;
-                width: 100%;
-                height: auto;
-            }
-            
-            .image-logo {
-                bottom: 15px;
-                right: 15px;
-                width: 45px;
-                height: 45px;
-                padding: 8px;
-                border-width: 2px;
-            }
-            
-            /* Header en haut à droite - style bulle blanche */
-            .page-header {
-                bottom: auto;
-                top: 15px;
-                right: 15px;
-                background: rgba(255, 255, 255, 0.95);
-                backdrop-filter: blur(5px);
-                padding: 8px 16px 8px 12px;
-                border-radius: 40px;
-                border: 2px solid #8c82ac4b;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-                z-index: 101;
-            }
-            
-            .header-logo {
-                width: 32px;
-                height: 32px;
-                opacity: 0.9;
-            }
-            
-            .header-text {
-                font-size: 0.7rem;
-                color: #555;
-                font-weight: 400;
-            }
-        }
-
-        /* ===== MODE PAYSAGE SUR MOBILE - BULLE IDENTIQUE AU PORTRAIT ===== */
-        @media (max-width: 900px) and (orientation: landscape) {
-            body {
-                align-items: center;
-            }
-
-            .container {
-                padding: 1rem;
-                height: auto;
-                min-height: auto;
-                display: flex;
-                align-items: center;
-            }
-            
-            /* Header en bulle blanche - EXACTEMENT COMME EN PORTRAIT */
-            .page-header {
-                bottom: auto;
-                top: 15px;
-                right: 15px;
-                background: rgba(255, 255, 255, 0.95); /* Même fond blanc */
-                backdrop-filter: blur(5px);
-                padding: 8px 16px 8px 12px; /* Mêmes dimensions */
-                border-radius: 40px;
-                border: 2px solid #8c82ac4b;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-                z-index: 101;
-            }
-            
-            .header-logo {
-                width: 32px;
-                height: 32px;
-                opacity: 0.9;
-            }
-            
-            .header-text {
-                font-size: 0.7rem;
-                color: #555;
-                font-weight: 400;
-            }
-            
-            .image-logo {
-                width: 40px;
-                height: 40px;
-                padding: 7px;
-                bottom: 15px;
-                right: 15px;
-            }
-        }
-
-        /* Pour les très petits téléphones en portrait */
-        @media (max-width: 380px) and (orientation: portrait) {
-            .container {
-                padding: 0.4rem;
-            }
-            
-            .image-logo {
-                bottom: 12px;
-                right: 12px;
-                width: 38px;
-                height: 38px;
-                padding: 6px;
-                border-width: 2px;
-            }
-            
-            .page-header {
-                top: 10px;
-                right: 10px;
-                padding: 6px 12px 6px 10px;
-            }
-            
-            .header-logo {
-                width: 28px;
-                height: 28px;
-            }
-            
-            .header-text {
-                font-size: 0.65rem;
-            }
-        }
-
-        /* Pour les très grands écrans (tablettes, desktop) */
-        @media (min-width: 601px) {
-            .page-header {
-                bottom: 5px;
-                top: auto;
-                right: 15px;
-                background: transparent;
-                backdrop-filter: none;
-                border: none;
-                padding: 0;
-            }
-            
-            .header-logo {
-                width: 48px;
-                height: 48px;
-            }
-            
-            .header-text {
-                font-size: 0.8rem;
-                color: #717177;
-            }
-        }
-
-        ::selection {
-            background-color: rgba(222, 207, 227, 0.632);
-            color: #333;
-        }
-
-        ::-moz-selection {
-            background-color: rgba(106, 83, 122, 0.2);
-            color: #333;
-        }
-
-        /* ===== MODE PAYSAGE SUR MOBILE - BULLE IDENTIQUE AU PORTRAIT ===== */
-@media (max-width: 900px) and (orientation: landscape) {
-    body {
-        align-items: center;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clarity's DataBase</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    .container {
-        padding: 1rem;
-        height: auto;
-        min-height: auto;
-        display: flex;
-        align-items: center;
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      overflow: hidden;
     }
-    
-    /* Header en bulle blanche - EXACTEMENT COMME EN PORTRAIT */
-    .page-header {
+
+    #container {
+      position: fixed;
+      inset: 0;
+      margin: 70px;
+      border-radius: 20px;
+      border: 3px solid #8c82ac4b;
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+
+    #container.grabbing {
+      cursor: grabbing;
+    }
+
+    #image-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    #image-wrapper img {
+      display: block;
+      max-width: none;
+      pointer-events: none;
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+
+    /* ── Logo inside container — bottom left ── */
+    #inner-logo {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      width: 52px;
+      height: 52px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 50%;
+      padding: 9px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      border: 2px solid #8c82ac4b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      pointer-events: all;
+    }
+
+    #inner-logo:hover {
+      transform: scale(1.12);
+      box-shadow: 0 6px 22px rgba(106, 83, 122, 0.3);
+    }
+
+    #inner-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* ── Zoom controls ── */
+    #controls {
+      position: fixed;
+      bottom: 90px;
+      right: 85px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    #controls button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 3px solid #8c82ac4b;
+      background: rgba(255, 255, 255, 0.92);
+      color: #a5a2c2;
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    #controls button:hover {
+      background: #8c82ac4b;
+      color: #fff;
+    }
+
+    #controls button:active {
+      transform: scale(0.93);
+    }
+
+    /* ── Designed by — bottom right outside container ── */
+    #page-footer {
+      position: fixed;
+      bottom: 14px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      z-index: 100;
+    }
+
+    #page-footer span {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: #9b97b8;
+      letter-spacing: 0.01em;
+    }
+
+    #footer-logo {
+      width: 38px;
+      height: 38px;
+      opacity: 0.75;
+      transition: opacity 0.2s ease;
+    }
+
+    #footer-logo:hover {
+      opacity: 1;
+    }
+
+    #footer-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* ── Responsive: mobile portrait ── */
+    @media (max-width: 600px) {
+      #container {
+        margin: 12px;
+        border-radius: 16px;
+      }
+
+      #controls {
+        bottom: 20px;
+        right: 20px;
+      }
+
+      #inner-logo {
+        width: 42px;
+        height: 42px;
+        bottom: 14px;
+        left: 14px;
+        padding: 7px;
+      }
+
+      #page-footer {
         bottom: auto;
-        top: 15px;
-        right: 15px;
-        background: rgba(255, 255, 255, 0.95); /* Même fond blanc opaque */
+        top: 14px;
+        right: 12px;
+        background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(5px);
-        padding: 8px 16px 8px 12px; /* MÊMES PADDINGS qu'en portrait */
+        padding: 6px 14px 6px 10px;
         border-radius: 40px;
         border: 2px solid #8c82ac4b;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        z-index: 101;
-        /* Forcer l'opacité */
-        opacity: 1;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      #footer-logo {
+        width: 28px;
+        height: 28px;
+      }
+
+      #page-footer span {
+        font-size: 0.68rem;
+        color: #555;
+      }
     }
-    
-    .header-logo {
-        width: 32px !important; /* Forcer la même taille */
-        height: 32px !important;
-        opacity: 0.9;
+
+    /* ── Responsive: mobile landscape ── */
+    @media (max-width: 900px) and (orientation: landscape) {
+      #container {
+        margin: 20px;
+        border-radius: 16px;
+      }
+
+      #controls {
+        bottom: 20px;
+        right: 30px;
+      }
+
+      #page-footer {
+        bottom: auto;
+        top: 14px;
+        right: 12px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(5px);
+        padding: 6px 14px 6px 10px;
+        border-radius: 40px;
+        border: 2px solid #8c82ac4b;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      #footer-logo {
+        width: 28px;
+        height: 28px;
+      }
+
+      #page-footer span {
+        font-size: 0.68rem;
+        color: #555;
+      }
     }
-    
-    .header-text {
-        font-size: 0.7rem !important; /* Forcer la même taille */
-        color: #555 !important;
-        font-weight: 400;
-        opacity: 1;
-    }
-    
-    .image-logo {
-        width: 40px;
-        height: 40px;
-        padding: 7px;
-        bottom: 15px;
-        right: 15px;
-    }
-}
-    </style>
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="video-wrapper">
-            <!-- Image principale -->
-            <img id="schemaImage" 
-                 src="BASE.jpg" 
-                 alt="Schéma de la base de données Supabase de Clarity"
-                 title="Schéma de la base de données Supabase de Clarity">
-            
-            <!-- Petit logo en bas à droite sur l'image -->
-            <div class="image-logo">
-                <img src="supabase_logo.webp" alt="Logo Supabase">
-            </div>
-        </div>
+
+  <div id="container">
+    <div id="image-wrapper">
+      <img src="BASE2.png" alt="BASE2" />
     </div>
 
-    <!-- Header avec Designed by -->
-    <div class="page-header">
-        <span class="header-text">Designed by</span>
-        <div class="header-logo">
-            <img src="AQ_sign_ext_0.png" alt="Logo">
-        </div>
+    <!-- Logo bottom-left inside container -->
+    <div id="inner-logo">
+      <img src="supabase_logo.webp" alt="Supabase" />
     </div>
+  </div>
 
-    <!-- Script minimal -->
-    <script>
-        const img = document.getElementById('schemaImage');
-        img.onload = function() {
-            console.log('Schéma chargé avec succès !');
-        };
-        img.onerror = function() {
-            console.warn('Image non trouvée. Vérifiez le chemin :', img.src);
-        };
-    </script>
+  <!-- Zoom controls -->
+  <div id="controls">
+    <button id="btn-reset"    title="Réinitialiser">↺</button>
+    <button id="btn-zoom-in"  title="Zoom +">+</button>
+    <button id="btn-zoom-out" title="Zoom −">−</button>
+  </div>
+
+  <!-- Designed by — outside container, bottom right -->
+  <div id="page-footer">
+    <span>Designed by</span>
+    <div id="footer-logo">
+      <img src="AQ_sign_ext_0.png" alt="Logo" />
+    </div>
+  </div>
+
+<script>
+(function () {
+  const container = document.getElementById('container');
+  const wrapper   = document.getElementById('image-wrapper');
+  const btnIn     = document.getElementById('btn-zoom-in');
+  const btnOut    = document.getElementById('btn-zoom-out');
+  const btnReset  = document.getElementById('btn-reset');
+
+  let scale = 1, tx = 0, ty = 0;
+  const SCALE_MAX = 20, STEP = 0.15;
+  let SCALE_MIN = 0.05;
+
+  const img = wrapper.querySelector('img');
+
+  function apply() {
+    wrapper.style.transform =
+      `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(${scale})`;
+  }
+
+  function getMinScale() {
+    const cw = container.clientWidth;
+    const ch = container.clientHeight;
+    const iw = img.naturalWidth;
+    const ih = img.naturalHeight;
+    if (!iw || !ih) return 0.05;
+    return Math.min(cw / iw, ch / ih);
+  }
+
+  function reset() {
+    scale = getMinScale();
+    tx = 0; ty = 0;
+    apply();
+  }
+
+  function initFit() {
+    SCALE_MIN = getMinScale();
+    scale = SCALE_MIN;
+    tx = 0; ty = 0;
+    apply();
+  }
+
+  if (img.complete && img.naturalWidth) {
+    initFit();
+  } else {
+    img.addEventListener('load', initFit);
+  }
+
+  window.addEventListener('resize', () => {
+    SCALE_MIN = getMinScale();
+    if (scale < SCALE_MIN) { scale = SCALE_MIN; apply(); }
+  });
+
+  /* Mouse pan */
+  let drag = false, sx, sy;
+  container.addEventListener('mousedown', e => {
+    drag = true; sx = e.clientX - tx; sy = e.clientY - ty;
+    container.classList.add('grabbing');
+  });
+  window.addEventListener('mousemove', e => {
+    if (!drag) return;
+    tx = e.clientX - sx; ty = e.clientY - sy; apply();
+  });
+  window.addEventListener('mouseup', () => { drag = false; container.classList.remove('grabbing'); });
+
+  /* Wheel zoom */
+  container.addEventListener('wheel', e => {
+    e.preventDefault();
+    const r = container.getBoundingClientRect();
+    const mx = e.clientX - r.left - r.width  / 2;
+    const my = e.clientY - r.top  - r.height / 2;
+    const factor = 1 + (e.deltaY < 0 ? 1 : -1) * STEP;
+    const ns = Math.min(SCALE_MAX, Math.max(SCALE_MIN, scale * factor));
+    const ratio = ns / scale;
+    tx = mx + (tx - mx) * ratio;
+    ty = my + (ty - my) * ratio;
+    scale = ns; apply();
+  }, { passive: false });
+
+  /* Touch pan & pinch */
+  let lt = null;
+  container.addEventListener('touchstart', e => {
+    lt = e.touches;
+    if (e.touches.length === 1) { sx = e.touches[0].clientX - tx; sy = e.touches[0].clientY - ty; }
+  }, { passive: true });
+
+  container.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (e.touches.length === 1) {
+      tx = e.touches[0].clientX - sx; ty = e.touches[0].clientY - sy; apply();
+    } else if (e.touches.length === 2 && lt && lt.length === 2) {
+      const r = container.getBoundingClientRect();
+      const pd = Math.hypot(lt[0].clientX - lt[1].clientX, lt[0].clientY - lt[1].clientY);
+      const cd = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+      const mx = (e.touches[0].clientX + e.touches[1].clientX) / 2 - r.left - r.width  / 2;
+      const my = (e.touches[0].clientY + e.touches[1].clientY) / 2 - r.top  - r.height / 2;
+      const ns = Math.min(SCALE_MAX, Math.max(SCALE_MIN, scale * cd / pd));
+      const ratio = ns / scale;
+      tx = mx + (tx - mx) * ratio; ty = my + (ty - my) * ratio;
+      scale = ns; apply();
+    }
+    lt = e.touches;
+  }, { passive: false });
+
+  container.addEventListener('touchend', e => {
+    lt = e.touches;
+    if (e.touches.length === 1) { sx = e.touches[0].clientX - tx; sy = e.touches[0].clientY - ty; }
+  });
+
+  /* Buttons */
+  btnIn.addEventListener('click',    () => { scale = Math.min(SCALE_MAX, scale * (1 + STEP)); apply(); });
+  btnOut.addEventListener('click',   () => { scale = Math.max(SCALE_MIN, scale * (1 - STEP)); apply(); });
+  btnReset.addEventListener('click', reset);
+})();
+</script>
 </body>
 </html>
