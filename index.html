@@ -17,18 +17,20 @@
       height: 100%;
       background: #fff;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     #container {
-      position: fixed;
-      inset: 0;
-      margin: 70px;
+      position: relative;
       border-radius: 20px;
       border: 3px solid #8c82ac4b;
       overflow: hidden;
       cursor: grab;
       user-select: none;
       touch-action: none;
+      /* taille définie par JS après chargement image */
     }
 
     #container.grabbing {
@@ -62,7 +64,7 @@
       border-radius: 50%;
       padding: 9px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-      border: 2px solid #8c82ac4b;
+      border: 2px solid #82ac9396;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -85,34 +87,33 @@
     /* ── Zoom controls ── */
     #controls {
       position: fixed;
-      bottom: 90px;
-      right: 85px;
+      bottom: 40px;
+      right:260px;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      z-index: 10;
+      z-index: 100;
     }
 
     #controls button {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      border:2px solid #8c82ac4b;
+      border: 2.5px solid #8c82ac4b;
       background: rgba(255, 255, 255, 0.92);
       color: #a5a2c2;
-      font-size: 20px;
+      font-size: 15px;
       line-height: 1;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.15s, color 0.15s;
+      transition: background 0.15s, color 0.15s, transform 0.15s;
     }
 
     #controls button:hover {
       background: #8c82ac16;
       transform: scale(1.08);
-      transition: background 0.15s, color 0.15s, transform 0.15s;
     }
 
     #controls button:active {
@@ -145,9 +146,7 @@
       transition: opacity 0.2s ease;
     }
 
-    #footer-logo:hover {
-      opacity: 1;
-    }
+    #footer-logo:hover { opacity: 1; }
 
     #footer-logo img {
       width: 100%;
@@ -158,7 +157,6 @@
     /* ── Responsive: mobile portrait ── */
     @media (max-width: 600px) {
       #container {
-        margin: 12px;
         border-radius: 16px;
       }
 
@@ -187,28 +185,16 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       }
 
-      #footer-logo {
-        width: 28px;
-        height: 28px;
-      }
+      #footer-logo { width: 28px; height: 28px; }
 
-      #page-footer span {
-        font-size: 0.68rem;
-        color: #555;
-      }
+      #page-footer span { font-size: 0.68rem; color: #555; }
     }
 
     /* ── Responsive: mobile landscape ── */
     @media (max-width: 900px) and (orientation: landscape) {
-      #container {
-        margin: 20px;
-        border-radius: 16px;
-      }
+      #container { border-radius: 16px; }
 
-      #controls {
-        bottom: 20px;
-        right: 30px;
-      }
+      #controls { bottom: 20px; right: 20px; }
 
       #page-footer {
         bottom: auto;
@@ -222,26 +208,13 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       }
 
-      #footer-logo {
-        width: 28px;
-        height: 28px;
-      }
+      #footer-logo { width: 28px; height: 28px; }
 
-      #page-footer span {
-        font-size: 0.68rem;
-        color: #555;
-      }
+      #page-footer span { font-size: 0.68rem; color: #555; }
     }
-    ::selection {
-    background-color: rgba(222, 207, 227, 0.632); /* Violet épuré avec transparence */
-    color: #333; /* Garde la couleur du texte originale ou mettez la couleur de votre choix */
-}
 
-/* Pour Firefox (nécessite le préfixe) */
-::-moz-selection {
-    background-color: rgba(106, 83, 122, 0.2);
-    color: #333;
-}
+    ::selection { background-color: rgba(222, 207, 227, 0.632); color: #333; }
+    ::-moz-selection { background-color: rgba(106, 83, 122, 0.2); color: #333; }
   </style>
 </head>
 <body>
@@ -250,21 +223,17 @@
     <div id="image-wrapper">
       <img src="BASE2.png" alt="BASE2" />
     </div>
-
-    <!-- Logo bottom-left inside container -->
     <div id="inner-logo">
       <img src="supabase_logo.webp" alt="Supabase" />
     </div>
   </div>
 
-  <!-- Zoom controls -->
   <div id="controls">
-<button id="btn-reset"    title="Réinitialiser la position"><i class="fas fa-undo" style="font-size: 15px;"></i></button>
-<button id="btn-zoom-in"  title="Zoomer"><i class="fa-solid fa-plus" style="font-size: 15px;"></i></button>
-<button id="btn-zoom-out" title="Dézoomer"><i class="fa-solid fa-minus" style="font-size: 15px;"></i></button>
+    <button id="btn-reset"    title="Réinitialiser la position"><i class="fas fa-undo" style="font-size:12px;"></i></button>
+    <button id="btn-zoom-in"  title="Zoomer"><i class="fa-solid fa-plus" style="font-size:12px;"></i></button>
+    <button id="btn-zoom-out" title="Dézoomer"><i class="fa-solid fa-minus" style="font-size:12px;"></i></button>
   </div>
 
-  <!-- Designed by — outside container, bottom right -->
   <div id="page-footer">
     <span>Designed by</span>
     <div id="footer-logo">
@@ -279,49 +248,66 @@
   const btnIn     = document.getElementById('btn-zoom-in');
   const btnOut    = document.getElementById('btn-zoom-out');
   const btnReset  = document.getElementById('btn-reset');
+  const img       = wrapper.querySelector('img');
 
   let scale = 1, tx = 0, ty = 0;
   const SCALE_MAX = 20, STEP = 0.15;
-  let SCALE_MIN = 0.05;
+  let SCALE_MIN = 1; // sera recalculé
 
-  const img = wrapper.querySelector('img');
+  const MARGIN = 40; // marge autour du container (px chaque côté)
 
-  function apply() {
-    wrapper.style.transform =
-      `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(${scale})`;
-  }
+function apply() {
+  if (scale <= SCALE_MIN) { tx = 0; ty = 0; }
+  wrapper.style.transform =
+    `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(${scale})`;
+}
 
-  function getMinScale() {
-    const cw = container.clientWidth;
-    const ch = container.clientHeight;
+  function sizeContainer() {
+    // Calcule la taille max disponible en tenant compte de la marge
+    const vw = window.innerWidth  - MARGIN * 2;
+    const vh = window.innerHeight - MARGIN * 2;
     const iw = img.naturalWidth;
     const ih = img.naturalHeight;
-    if (!iw || !ih) return 0.05;
-    return Math.min(cw / iw, ch / ih);
+
+    // Scale fit : l'image tient entièrement dans la zone dispo
+    const fitScale = Math.min(vw / iw, vh / ih);
+    SCALE_MIN = fitScale;
+
+    // Container = taille de l'image au scale fit
+    const cw = Math.round(iw * fitScale);
+    const ch = Math.round(ih * fitScale);
+
+    container.style.width  = cw + 'px';
+    container.style.height = ch + 'px';
+
+    return fitScale;
   }
 
   function reset() {
-    scale = getMinScale();
+    const fitScale = sizeContainer();
+    scale = fitScale;
     tx = 0; ty = 0;
     apply();
   }
 
-  function initFit() {
-    SCALE_MIN = getMinScale();
-    scale = SCALE_MIN;
+  function init() {
+    const fitScale = sizeContainer();
+    scale = fitScale;
     tx = 0; ty = 0;
     apply();
   }
 
   if (img.complete && img.naturalWidth) {
-    initFit();
+    init();
   } else {
-    img.addEventListener('load', initFit);
+    img.addEventListener('load', init);
   }
 
   window.addEventListener('resize', () => {
-    SCALE_MIN = getMinScale();
-    if (scale < SCALE_MIN) { scale = SCALE_MIN; apply(); }
+    const fitScale = sizeContainer();
+    SCALE_MIN = fitScale;
+    if (scale < SCALE_MIN) { scale = SCALE_MIN; tx = 0; ty = 0; }
+    apply();
   });
 
   /* Mouse pan */
