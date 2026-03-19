@@ -56,10 +56,10 @@
     /* ── Logo inside container — bottom left ── */
     #inner-logo {
       position: absolute;
-      bottom: 18px;
-      left: 18px;
-      width: 52px;
-      height: 52px;
+      bottom: 5px;
+      left: 8px;
+      width: 40px;
+      height: 40px;
       background: rgba(255, 255, 255, 0.95);
       border-radius: 50%;
       padding: 9px;
@@ -71,11 +71,6 @@
       z-index: 20;
       transition: transform 0.25s ease, box-shadow 0.25s ease;
       pointer-events: all;
-    }
-
-    #inner-logo:hover {
-      transform: scale(1.12);
-      box-shadow: 0 6px 22px rgba(106, 83, 122, 0.3);
     }
 
     #inner-logo img {
@@ -166,10 +161,10 @@
       }
 
       #inner-logo {
-        width: 42px;
-        height: 42px;
-        bottom: 14px;
-        left: 14px;
+        width: 30px;
+        height: 30px;
+        bottom: 3px;
+        left: 3px;
         padding: 7px;
       }
 
@@ -211,6 +206,13 @@
       #footer-logo { width: 28px; height: 28px; }
 
       #page-footer span { font-size: 0.68rem; color: #555; }
+            #inner-logo {
+        width: 30px;
+        height: 30px;
+        bottom: 3px;
+        left: 3px;
+        padding: 7px;
+      }
     }
 
     ::selection { background-color: rgba(222, 207, 227, 0.632); color: #333; }
@@ -221,7 +223,7 @@
 
   <div id="container">
     <div id="image-wrapper">
-      <img src="BASE2.png" alt="BASE2" />
+      <img src="clarity_schema.svg" alt="BASE2" />
     </div>
     <div id="inner-logo">
       <img src="supabase_logo.webp" alt="Supabase" />
@@ -373,7 +375,7 @@ function apply() {
   document.getElementById('btn-download').addEventListener('click', () => {
   const a = document.createElement('a');
   a.href = img.src;
-  a.download = 'BASE2.png';
+  a.download = 'clarity_schema.svg';
   a.click();
 });
   btnReset.addEventListener('click', reset);
