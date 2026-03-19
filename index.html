@@ -329,7 +329,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#ffffff;font-family:
   <div class="sep"></div>
   <div id="domain-pills"></div>
   <select id="domain-select-mobile" style="display:none; height:30px; border-radius:20px; border:1.5px solid #e0dcea; background:white; padding:0 10px; font-size:12px; color:#333;">
-    <option value="">Choisir un domaine...</option>
+    <option value="">Choisir une section...</option>
   </select>
   <div class="sep"></div>
   <!-- Les boutons sont retirés de la topbar -->
@@ -7265,7 +7265,7 @@ function initMobileSelect() {
   if (!select) return;
   
   // Vider et remplir
-  select.innerHTML = '<option value="">Choisir un domaine...</option>';
+  select.innerHTML = '<option value="">Choisir une section...</option>';
   for (let d = 0; d <= 8; d++) {
     const option = document.createElement('option');
     option.value = d;
