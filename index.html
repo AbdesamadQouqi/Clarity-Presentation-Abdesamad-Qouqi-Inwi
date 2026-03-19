@@ -140,8 +140,8 @@
     }
 
     #footer-logo {
-      width: 38px;
-      height: 38px;
+      width: 43px;
+      height: 43px;
       opacity: 0.75;
       transition: opacity 0.2s ease;
     }
@@ -229,6 +229,7 @@
   </div>
 
   <div id="controls">
+    <button id="btn-download" title="Télécharger l'image"><i class="fa-solid fa-download" style="font-size:12px;"></i></button>
     <button id="btn-reset"    title="Réinitialiser la position"><i class="fas fa-undo" style="font-size:12px;"></i></button>
     <button id="btn-zoom-in"  title="Zoomer"><i class="fa-solid fa-plus" style="font-size:12px;"></i></button>
     <button id="btn-zoom-out" title="Dézoomer"><i class="fa-solid fa-minus" style="font-size:12px;"></i></button>
@@ -369,6 +370,12 @@ function apply() {
   /* Buttons */
   btnIn.addEventListener('click',    () => { scale = Math.min(SCALE_MAX, scale * (1 + STEP)); apply(); });
   btnOut.addEventListener('click',   () => { scale = Math.max(SCALE_MIN, scale * (1 - STEP)); apply(); });
+  document.getElementById('btn-download').addEventListener('click', () => {
+  const a = document.createElement('a');
+  a.href = img.src;
+  a.download = 'BASE2.png';
+  a.click();
+});
   btnReset.addEventListener('click', reset);
 })();
 </script>
